@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2019_09_09_134542) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "mazes", force: :cascade do |t|
     t.json "grid"
     t.string "name"
@@ -23,10 +26,11 @@ ActiveRecord::Schema.define(version: 2019_09_09_134542) do
     t.integer "score"
     t.integer "time"
     t.string "user", default: "Not Entered"
-    t.integer "maze_id"
+    t.bigint "maze_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["maze_id"], name: "index_runs_on_maze_id"
   end
 
+  add_foreign_key "runs", "mazes"
 end
